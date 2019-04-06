@@ -7,6 +7,7 @@ use App\Image_uploaded;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class UploadImageController extends Controller
 {
@@ -67,8 +68,11 @@ class UploadImageController extends Controller
         Image_uploaded::create([
             'name' => $fileName,
             'dimensions' => implode('|', $this->dimensions),
-            'path' => $this->path
+            'path' => $this->path,
+
         ]);
+        echo (new TesseractOCR($this->path+$fileName))
+            ->run();
         return redirect()->back()->with(['success' => 'Gambar Telah Di-upload']);
     }
 }
