@@ -71,7 +71,7 @@ class UploadImageController extends Controller
             'path' => $this->path,
 
         ]);
-        echo (new TesseractOCR($this->path+$fileName))
+        echo (new TesseractOCR($this->path . '/' . $fileName))
             ->run();
         return redirect()->back()->with(['success' => 'Gambar Telah Di-upload']);
     }
