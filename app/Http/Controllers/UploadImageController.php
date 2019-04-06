@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use App\Image_uploaded;
+use Carbon\Carbon;
+use Intervention\Image;
+use Illuminate\Support\Facades\File;
 
 class UploadImageController extends Controller
 {
