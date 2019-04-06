@@ -73,6 +73,7 @@ class UploadImageController extends Controller
         ]);
         $ocr = new TesseractOCR();
         $ocr->image($this->path.'/'.$fileName);
+        $ocr->availableLanguages("eng", "ind");
         $result = $ocr->run();
 
         return redirect()->back()->with(['success' => 'Gambar Telah Di-upload'.$result ]);
