@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbd59c2fd7b4fa8c5c7181a8810bca6d",
+    "content-hash": "7933d26b683e60ba6bbefd486bb49f6f",
     "packages": [
+        {
+            "name": "alimranahmed/laraocr",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alimranahmed/LaraOCR.git",
+                "reference": "84f5202b5acc5370316ddb398ee31dd57b1503f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alimranahmed/LaraOCR/zipball/84f5202b5acc5370316ddb398ee31dd57b1503f5",
+                "reference": "84f5202b5acc5370316ddb398ee31dd57b1503f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alimranahmed\\LaraOCR\\LaraOCRServiceProvider"
+                    ],
+                    "aliases": {
+                        "OCR": "Alimranahmed\\LaraOCR\\Facades\\OCR"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alimranahmed\\LaraOCR\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Al Imran Ahmed",
+                    "email": "al.imran.cse@gmail.com"
+                }
+            ],
+            "description": "Laravel Optical Character Reader(OCR) package using different OCR engines like Tesseract",
+            "keywords": [
+                "OCR",
+                "data",
+                "image"
+            ],
+            "time": "2018-10-17T12:23:26+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
