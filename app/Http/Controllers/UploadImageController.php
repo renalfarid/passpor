@@ -76,6 +76,6 @@ class UploadImageController extends Controller
         $ocr->availableLanguages("eng", "ind");
         $result = $ocr->run();
 
-        return redirect()->back()->with(['success' => 'Gambar Telah Di-upload'.$result ]);
+        return redirect()->back()->with(['success' => $result ]);
     }
 }
