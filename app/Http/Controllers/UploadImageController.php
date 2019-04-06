@@ -73,7 +73,7 @@ class UploadImageController extends Controller
         ]);
         $ocr = new TesseractOCR();
         $ocr->image($this->path.'/'.$fileName);
-        $ocr->availableLanguages("eng", "ind");
+        $ocr->availableLanguages("ind");
         $result = $ocr->run();
 
         return redirect()->back()->with(['success' => $result ]);
