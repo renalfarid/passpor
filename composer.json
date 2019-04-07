@@ -16,7 +16,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "2.16.0 as 1.34.0",
-        "thiagoalessio/tesseract_ocr": "^2.7"
+        "thiagoalessio/tesseract_ocr": "^2.7",
+        "wapnen/google-cloud-vision-php": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

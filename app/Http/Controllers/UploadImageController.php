@@ -7,7 +7,9 @@ use App\Image_uploaded;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
-use thiagoalessio\TesseractOCR\TesseractOCR;
+//use thiagoalessio\TesseractOCR\TesseractOCR;
+use GoogleCloudVision\GoogleCloudVision;
+use GoogleCloudVision\Request\AnnotateImageRequest;
 
 class UploadImageController extends Controller
 {
@@ -71,11 +73,33 @@ class UploadImageController extends Controller
             'path' => $this->path,
 
         ]);
-        $ocr = new TesseractOCR();
+        /*$ocr = new TesseractOCR();
         $ocr->image($this->path.'/'.$fileName);
         $ocr->availableLanguages("ind");
-        $result = $ocr->run();
+        $result = $ocr->run();*/
 
-        return redirect()->back()->with(['success' => $result ]);
+        $image = base64_encode(file_get_contents($request->file('image')));
+
+
+        $ocr = new AnnotateImageRequest();
+        $ocr->setImage($image);
+        $ocr->setFeature("DOCUMENT_TEXT_DETECTION");
+
+        $ocrRequest = new GoogleCloudVision([$ocr], env('GOOGLE_CLOUD_KEY'));
+
+        $response = $ocrRequest->annotate();
+
+        $result = $response->responses[0]->fullTextAnnotation->text;
+
+        $res = explode( "\n", $result );
+
+        $res1 = $res[35];
+        $res2 = $res[36];
+
+        //dd($res2);
+
+       // $zmrcode = $res1."\r\n".$res2;
+
+        return redirect()->back()->with(['success' => $res1."\r\n".$res2]);
     }
 }
