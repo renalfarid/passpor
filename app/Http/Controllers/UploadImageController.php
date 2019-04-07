@@ -93,12 +93,15 @@ class UploadImageController extends Controller
 
         $res = explode( "\n", $result );
 
-        $res1 = $res[35];
-        $res2 = $res[36];
+        $off = count($res);
+
+        $res1 = $res[$off-3];
+        $res2 = $res[$off-2];
 
         //dd($res2);
 
-       // $zmrcode = $res1."\r\n".$res2;
+       //$zmrcode = $res1."\r\n".$res2;
+
 
         return redirect()->back()->with(['success' => $res1."\r\n".$res2]);
     }
