@@ -16,11 +16,7 @@
                     <form action="{{ route('upload.image') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+
 
                         <div class="form-group">
                             <label for="">Pilih gambar</label>
@@ -33,6 +29,67 @@
                     </form>
                 </div>
             </div>
+
+            @if (session('success'))
+                <div class="col-md-6 alert-success">
+                    <p>Data Scan Passpor :</p>
+                    {{ session('success') }}
+                    <br/><br/>
+
+                    <p>====================================================</p>
+
+                    @if (session()->has('tipedokumen') == 'P' )
+                        @php
+                            $passport = 'Passport';
+                            echo "<p>Tipe Dokumen : ".$passport."</p>";
+                        @endphp
+
+                    @endif
+
+
+                    <p>No Passport : {{ session('nopassport') }} </p>
+
+                    @if (session()->has('negaraissued') == 'IDN' )
+                        @php
+                            $negaraissued = 'INDONESIA';
+                            echo "<p>Negara Passport : ".$negaraissued."</p>";
+                        @endphp
+
+                    @endif
+
+                    <p>Tgl Expire : {{ session('tglexpire') }} </p>
+                    <p>====================================================</p>
+                    <p>Nama Awal : {{ session('namaawal') }} </p>
+                    <p>Nama Belakang : {{ session('namabelakang') }} </p>
+                    <p>No KTP : {{ session('noktp') }} </p>
+
+                    @if (session()->has('gender') == 'M' )
+                        @php
+                            $gender = 'Laki-Laki';
+                            echo "<p>Jenis Kelamin : ".$gender."</p>";
+                        @endphp
+                    @elseif(session()->has('gender') == 'M')
+
+                        @php
+                            $gender = 'Perempuan';
+                            echo "<p>Jenis Kelamin : ".$gender."</p>";
+                        @endphp
+
+                    @endif
+
+                    <p>Tgl Lahir : {{ session('tgllahir') }} </p>
+
+                    @if (session()->has('warganegara') == 'IDN' )
+                        @php
+                            $warganegara = 'INDONESIA';
+                            echo "<p>Warga Negara : ".$warganegara."</p>";
+                        @endphp
+
+                    @endif
+
+                    <p><br/><br/></p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

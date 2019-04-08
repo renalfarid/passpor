@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 //use thiagoalessio\TesseractOCR\TesseractOCR;
 use GoogleCloudVision\GoogleCloudVision;
 use GoogleCloudVision\Request\AnnotateImageRequest;
+use Deft\MrzParser\MrzParser;
 
 class UploadImageController extends Controller
 {
@@ -99,10 +100,40 @@ class UploadImageController extends Controller
         $res2 = $res[$off-2];
 
         //dd($res2);
+       $zmrscan = $res1.$res2;
 
-       //$zmrcode = $res1."\r\n".$res2;
+       $parser = new MrzParser();
+       $traveldocument = $parser->parseString($zmrscan);
 
+       $typedocument = $traveldocument->getType();
+       $namaakhir = $traveldocument->getPrimaryIdentifier();
+       $namaawal = $traveldocument->getSecondaryIdentifier();
+       $gender = $traveldocument->getSex();
+       $tgllahir=Carbon::parse($traveldocument->getDateOfBirth(), 'UTC');
+       $datelahir = $tgllahir->isoFormat('DD MMMM YYYY');
+       //$tgllahir = Carbon::createFromFormat('d/m/Y g:i:s A',$traveldocument->getDateOfBirth(),null);
+       $tglexpire = Carbon::parse($traveldocument->getDateOfExpiry(),'UTC');
+       $dateexpire = $tglexpire->isoFormat('DD MMMM YYYY');
+       $nopassport = $traveldocument->getDocumentNumber();
+       $negaraissue = $traveldocument->getIssuingCountry();
+       $warganegara = $traveldocument->getNationality();
+       $idnumber = $traveldocument->getPersonalNumber();
 
-        return redirect()->back()->with(['success' => $res1."\r\n".$res2]);
+       //$resultscan = json_encode($traveldocument);
+       $zmrcode = $res1." \r\n".$res2;
+
+       //$lahir = Carbon::parse($tgllahir,'UTC');
+       //print $lahir->isoFormat('DD MMMM YYYY');
+       return redirect()->back()->with('success', $zmrcode)
+                                ->with('tipedokumen', $typedocument)
+                                ->with('nopassport', $nopassport)
+                                ->with('negaraissued', $negaraissue)
+                                ->with('tglexpire', $dateexpire)
+                                ->with('namaawal', $namaawal)
+                                ->with('namabelakang', $namaakhir)
+                                ->with('noktp', $idnumber)
+                                ->with('gender', $gender)
+                                ->with('tgllahir', $datelahir)
+                                ->with('warganegara', $warganegara);
     }
 }
